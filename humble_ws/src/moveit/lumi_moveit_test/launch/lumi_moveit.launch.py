@@ -151,15 +151,8 @@ def generate_launch_description():
 
     # Spawners for controllers - with delay to ensure controller_manager is ready
     # Use --controller-manager-timeout to wait longer for controller_manager
-    joint_state_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[
-            "joint_state_broadcaster",
-            "--controller-manager", "/controller_manager",
-            "--controller-manager-timeout", "60",
-        ],
-    )
+    # NOTE: joint_state_broadcaster is NOT needed because Isaac Sim already publishes
+    # complete /joint_states including all gripper mimic joints
 
     jaka_lumi_body_controller_spawner = Node(
         package="controller_manager",
@@ -192,23 +185,18 @@ def generate_launch_description():
     )
 
     # Delay spawners to start after ros2_control_node is ready
-    delayed_joint_state_broadcaster = TimerAction(
-        period=3.0,
-        actions=[joint_state_broadcaster_spawner],
-    )
-
     delayed_body_controller = TimerAction(
-        period=4.0,
+        period=3.0,
         actions=[jaka_lumi_body_controller_spawner],
     )
 
     delayed_arm_controller = TimerAction(
-        period=5.0,
+        period=4.0,
         actions=[jaka_lumi_minicobo_arm_controller_spawner],
     )
 
     delayed_gripper_controller = TimerAction(
-        period=6.0,
+        period=5.0,
         actions=[gripper_controller_spawner],
     )
 
@@ -218,7 +206,6 @@ def generate_launch_description():
             use_sim_time,
             robot_state_publisher,
             ros2_control_node,
-            delayed_joint_state_broadcaster,
             delayed_body_controller,
             delayed_arm_controller,
             delayed_gripper_controller,
