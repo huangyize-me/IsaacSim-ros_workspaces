@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="jaka_lumi_ros2_control" params="name initial_positions_file ros2_control_hardware_type">
+        <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
+
+        <ros2_control name="${name}" type="system">
+            <!-- Hardware plugin selection based on ros2_control_hardware_type -->
+            <hardware>
+                <!-- Isaac Sim: Use topic_based_ros2_control for communication with Isaac Sim -->
+                <xacro:if value="${ros2_control_hardware_type == 'isaac'}">
+                    <plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
+                    <param name="joint_states_topic">/joint_states</param>
+                    <param name="joint_commands_topic">/lumi/joint_command</param>
+                </xacro:if>
+                <!-- Mock components: For testing without simulation -->
+                <xacro:if value="${ros2_control_hardware_type == 'mock_components'}">
+                    <plugin>mock_components/GenericSystem</plugin>
+                </xacro:if>
+            </hardware>
+
+            <!-- Body joints: l_1 (prismatic), l_2, l_3, l_4 (revolute) -->
+            <joint name="l_1">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_1']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_2">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_2']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_3">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_3']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_4">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_4']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+
+            <!-- Minicobo arm joints: l_a1 ~ l_a6 (all revolute) -->
+            <joint name="l_a1">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_a1']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_a2">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_a2']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_a3">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_a3']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_a4">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_a4']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_a5">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_a5']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="l_a6">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['l_a6']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+
+            <!-- Robotiq 2F-85 Gripper: Main finger joint (matches USD naming) -->
+            <joint name="finger_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions['finger_joint']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+
+        </ros2_control>
+    </xacro:macro>
+</robot>

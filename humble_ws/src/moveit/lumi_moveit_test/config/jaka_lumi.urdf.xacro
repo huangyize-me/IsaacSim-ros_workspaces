@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="JAKA-Lumi-0115">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <xacro:arg name="ros2_control_hardware_type" default="isaac"/>
+
+    <!-- Import JAKA-Lumi-0115 urdf file -->
+    <xacro:include filename="$(find JAKA-Lumi-0115)/urdf/JAKA-Lumi-0115.urdf" />
+
+    <!-- Import Robotiq 2F-85 gripper macro -->
+    <xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model_macro.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="$(find lumi_moveit_test)/config/jaka_lumi.ros2_control.xacro" />
+
+    <!-- Instantiate the Robotiq 2F-85 gripper with NO prefix (to match USD) -->
+    <xacro:robotiq_arg2f_85 prefix=""/>
+
+    <!-- Connect gripper to the robot's tool link (link_at) -->
+    <joint name="gripper_to_arm" type="fixed">
+        <parent link="link_at"/>
+        <child link="robotiq_arg2f_base_link"/>
+        <!-- Adjust origin as needed based on your mounting -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Setup ros2_control hardware interface -->
+    <xacro:jaka_lumi_ros2_control 
+        name="jaka_lumi_hardware" 
+        initial_positions_file="$(arg initial_positions_file)" 
+        ros2_control_hardware_type="$(arg ros2_control_hardware_type)" />
+
+</robot>

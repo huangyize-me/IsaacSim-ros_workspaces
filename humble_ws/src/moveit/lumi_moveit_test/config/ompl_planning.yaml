@@ -1,0 +1,98 @@
+planning_plugin: ompl_interface/OMPLPlanner
+request_adapters: >-
+  default_planner_request_adapters/AddTimeOptimalParameterization
+  default_planner_request_adapters/ResolveConstraintFrames
+  default_planner_request_adapters/FixWorkspaceBounds
+  default_planner_request_adapters/FixStartStateBounds
+  default_planner_request_adapters/FixStartStateCollision
+  default_planner_request_adapters/FixStartStatePathConstraints
+start_state_max_bounds_error: 0.1
+
+planner_configs:
+  RRTConnect:
+    type: geometric::RRTConnect
+    range: 0.0
+  RRT:
+    type: geometric::RRT
+    range: 0.0
+    goal_bias: 0.05
+  RRTstar:
+    type: geometric::RRTstar
+    range: 0.0
+    goal_bias: 0.05
+    delay_collision_checking: 1
+  PRM:
+    type: geometric::PRM
+    max_nearest_neighbors: 10
+  PRMstar:
+    type: geometric::PRMstar
+  EST:
+    type: geometric::EST
+    range: 0.0
+    goal_bias: 0.05
+  KPIECE:
+    type: geometric::KPIECE
+    range: 0.0
+    goal_bias: 0.05
+    border_fraction: 0.9
+    failed_expansion_score_factor: 0.5
+    min_valid_path_fraction: 0.5
+  BKPIECE:
+    type: geometric::BKPIECE
+    range: 0.0
+    border_fraction: 0.9
+    failed_expansion_score_factor: 0.5
+    min_valid_path_fraction: 0.5
+  LBKPIECE:
+    type: geometric::LBKPIECE
+    range: 0.0
+    border_fraction: 0.9
+    min_valid_path_fraction: 0.5
+  SBL:
+    type: geometric::SBL
+    range: 0.0
+
+jaka_lumi_body:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - PRM
+    - PRMstar
+    - EST
+    - KPIECE
+    - BKPIECE
+    - LBKPIECE
+    - SBL
+  default_planner_config: RRTConnect
+  projection_evaluator: joints(l_1,l_2)
+
+jaka_lumi_minicobo_arm:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - PRM
+    - PRMstar
+    - EST
+    - KPIECE
+    - BKPIECE
+    - LBKPIECE
+    - SBL
+  default_planner_config: RRTConnect
+  projection_evaluator: joints(l_a1,l_a2)
+
+jaka_lumi_full_robot:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - PRM
+    - PRMstar
+    - EST
+    - KPIECE
+    - BKPIECE
+    - LBKPIECE
+    - SBL
+  default_planner_config: RRTConnect
+  projection_evaluator: joints(l_1,l_a1)

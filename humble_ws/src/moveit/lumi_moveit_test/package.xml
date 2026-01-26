@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>lumi_moveit_test</name>
+  <version>0.1.0</version>
+  <description>
+    MoveIt2 configuration package for JAKA Lumi robot with Isaac Sim integration.
+    This package provides MoveIt2 motion planning capabilities for the Lumi robot
+    using topic_based_ros2_control to communicate with Isaac Sim.
+  </description>
+
+  <maintainer email="hyz@example.com">hyz</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- MoveIt dependencies -->
+  <build_depend>moveit</build_depend>
+  <build_depend>moveit_configs_utils</build_depend>
+  <build_depend>moveit_simple_controller_manager</build_depend>
+  
+  <!-- ROS2 Control dependencies -->
+  <build_depend>topic_based_ros2_control</build_depend>
+  <build_depend>ros2_control</build_depend>
+  <build_depend>ros2_controllers</build_depend>
+  
+  <!-- Robot description -->
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <!-- Execution dependencies -->
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>moveit_ros_move_group</exec_depend>
+  <exec_depend>moveit_ros_visualization</exec_depend>
+  <exec_depend>moveit_kinematics</exec_depend>
+  <exec_depend>moveit_planners</exec_depend>
+  <exec_depend>moveit_simple_controller_manager</exec_depend>
+  <exec_depend>moveit_configs_utils</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>JAKA-Lumi-0115</exec_depend>
+  <exec_depend>robotiq_2f_85_gripper_visualization</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

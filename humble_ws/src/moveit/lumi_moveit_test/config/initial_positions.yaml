@@ -1,0 +1,17 @@
+# Default initial positions for jaka_lumi's ros2_control system
+
+initial_positions:
+  # Body joints
+  l_1: 0
+  l_2: 0
+  l_3: 0
+  l_4: 0
+  # Arm joints
+  l_a1: 0
+  l_a2: 0
+  l_a3: 0
+  l_a4: 0
+  l_a5: 0
+  l_a6: 0
+  # Robotiq 2F-85 Gripper (0 = open, 0.8 = closed) - matches USD naming
+  finger_joint: 0
